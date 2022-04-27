@@ -56,3 +56,15 @@ exports.list = (perPage, page) => {
             })
     });
 };
+
+exports.removeById = (commentId) => {
+    return new Promise((resolve, reject) => {
+        commentModel.deleteMany({_id: commentId}, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(err);
+            }
+        });
+    });
+};

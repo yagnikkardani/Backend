@@ -25,7 +25,6 @@ const UserModel = require('../models/users.model');
  *           enum: [Female, Male, Unknown]
  *           default: Unknown
  *       example:
- *         id: 123ab45hs
  *         firstName: Yagnik
  *         lastName: Kardani
  *         gender: Male
@@ -90,4 +89,33 @@ exports.list = (req, res) => {
         .then((result) => {
             res.status(200).send(result);
         })
+};
+
+
+/**
+ * @swagger
+ * /user/{id}:
+ *   delete:
+ *     summary: Delete a user
+ *     parameters: 
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *     responses:
+ *       200:
+ *         description: Delete a user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ */
+ exports.removeById = (req, res) => {
+    UserModel.removeById(req.params.id)
+        .then((result)=>{
+            res.status(204).send({});
+        });
 };

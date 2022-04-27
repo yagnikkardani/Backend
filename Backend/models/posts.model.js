@@ -59,3 +59,15 @@ exports.findById = (id) => {
             return result;
         });
 };
+
+exports.removeById = (postId) => {
+    return new Promise((resolve, reject) => {
+        postModel.deleteMany({_id: postId}, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(err);
+            }
+        });
+    });
+};

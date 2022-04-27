@@ -27,12 +27,8 @@ const commentModel = require('../models/comments.model');
  *         parentComment:
  *           $ref: '#/components/schemas/Comment'
  *       example:
- *         id: 123ab45hs
  *         commentDescription: This is my first comment
  *         commentDate: 1991-12-06T00:00:00.000Z
- *         post: 123ab45xx
- *         user: 123ab45yy
- *         parentComment: 123ab45zz
  */
 
  /**
@@ -101,4 +97,33 @@ exports.list = (req, res) => {
         .then((result) => {
             res.status(200).send(result);
         })
+};
+
+
+/**
+ * @swagger
+ * /comment/{id}:
+ *   delete:
+ *     summary: Delete a comment
+ *     parameters: 
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *     responses:
+ *       200:
+ *         description: Delete a comment
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Comment'
+ */
+ exports.removeById = (req, res) => {
+    commentModel.removeById(req.params.id)
+        .then((result)=>{
+            res.status(204).send({});
+        });
 };

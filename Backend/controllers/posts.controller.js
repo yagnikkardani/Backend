@@ -35,13 +35,10 @@ const postModel = require('../models/posts.model');
  *         user:
  *           $ref:'#/components/schemas/User'
  *       example:
- *         id: 123ab45hs
  *         postTitle: My First Post
  *         postDescription: This is a post description for first post
  *         postDate: 1991-12-06T00:00:00.000Z
  *         postTags: ['Design', 'XD']
- *         comments: [234rhs45]
- *         user: 1234user001
  */
 
  /**
@@ -104,4 +101,34 @@ exports.list = (req, res) => {
         .then((result) => {
             res.status(200).send(result);
         })
+};
+
+
+
+ /**
+ * @swagger
+ * /post/{id}:
+ *   delete:
+ *     summary: Delete a post
+ *     parameters: 
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *     responses:
+ *       200:
+ *         description: Delete a post
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Post'
+ */
+exports.removeById = (req, res) => {
+    postModel.removeById(req.params.id)
+        .then((result)=>{
+            res.status(204).send({});
+        });
 };

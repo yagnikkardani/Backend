@@ -9,16 +9,25 @@ exports.routesConfig = function (app) {
     app.get('/users', [
         UsersController.list
     ]);
+    app.delete('/user/:id', [
+        UsersController.removeById
+    ]);
     app.post('/post', [
         PostsController.insert
     ]);
     app.get('/posts', [
         PostsController.list
     ]);
+    app.delete('/post/:id', [
+        PostsController.removeById
+    ]);
     app.post('/post/:id/comment', [
         CommentsController.insert
     ]);
     app.get('/comments', [
         CommentsController.list
+    ]);
+    app.delete('/comment/:id', [
+        CommentsController.removeById
     ]);
 };
