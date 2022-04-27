@@ -132,3 +132,32 @@ exports.removeById = (req, res) => {
             res.status(204).send({});
         });
 };
+
+
+/**
+ * @swagger
+ * /post/{id}:
+ *   get:
+ *     summary: Returns a perticular post
+ *     parameters: 
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *     responses:
+ *       200:
+ *         description: The list of the post
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Post'
+ */
+ exports.getById = (req, res) => {
+    postModel.findById(req.params.id)
+        .then((result) => {
+            res.status(200).send(result);
+        });
+};

@@ -71,3 +71,13 @@ exports.removeById = (postId) => {
         });
     });
 };
+
+exports.findById = (postId) => {
+    return postModel.findById(postId)
+        .then((result) => {
+            result = result.toJSON();
+            delete result._id;
+            delete result.__v;
+            return result;
+        });
+};

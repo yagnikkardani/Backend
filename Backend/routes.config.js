@@ -9,6 +9,9 @@ exports.routesConfig = function (app) {
     app.get('/users', [
         UsersController.list
     ]);
+    app.get('/user/:id', [
+        UsersController.getById
+    ]);
     app.delete('/user/:id', [
         UsersController.removeById
     ]);
@@ -17,6 +20,9 @@ exports.routesConfig = function (app) {
     ]);
     app.get('/posts', [
         PostsController.list
+    ]);
+    app.get('/post/:id', [
+        PostsController.getById
     ]);
     app.delete('/post/:id', [
         PostsController.removeById

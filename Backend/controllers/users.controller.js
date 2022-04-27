@@ -113,9 +113,39 @@ exports.list = (req, res) => {
  *               items:
  *                 $ref: '#/components/schemas/User'
  */
- exports.removeById = (req, res) => {
+exports.removeById = (req, res) => {
     UserModel.removeById(req.params.id)
         .then((result)=>{
             res.status(204).send({});
+        });
+};
+
+/**
+ * @swagger
+ * /user/{id}:
+ *   get:
+ *     summary: Returns a perticular user
+ *     parameters: 
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *     responses:
+ *       200:
+ *         description: The list of the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
+ */
+
+
+exports.getById = (req, res) => {
+    UserModel.findById(req.params.id)
+        .then((result) => {
+            res.status(200).send(result);
         });
 };

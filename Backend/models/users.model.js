@@ -52,3 +52,13 @@ exports.removeById = (userId) => {
       });
   });
 };
+
+exports.findById = (userId) => {
+  return userModel.findById(userId)
+      .then((result) => {
+          result = result.toJSON();
+          delete result._id;
+          delete result.__v;
+          return result;
+      });
+};
