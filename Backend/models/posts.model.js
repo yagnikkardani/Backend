@@ -1,4 +1,5 @@
 const mongoose = require('../services/mongoose.service').mongoose;
+
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
@@ -16,6 +17,10 @@ const postSchema = new Schema({
         type: Date,
         required: true
     },
+    postTags: {
+        type: [String],
+        require: true
+      },
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
