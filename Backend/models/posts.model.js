@@ -1,4 +1,5 @@
 const mongoose = require('../services/mongoose.service').mongoose;
+const commentModel = require('./comments.model');
 
 const Schema = mongoose.Schema;
 
@@ -65,7 +66,12 @@ exports.findById = (id) => {
         });
 };
 
-exports.removeById = (postId) => {
+exports.removeById = async (postId) => {
+    const post = await postModel.findById(postId)
+    const comments = post.comments
+    comments.length && comments.forEach(async comment => {
+        await commentModel.removeCommentById(comment)
+    });
     return new Promise((resolve, reject) => {
         postModel.deleteMany({_id: postId}, (err) => {
             if (err) {
@@ -75,16 +81,6 @@ exports.removeById = (postId) => {
             }
         });
     });
-};
-
-exports.findById = (postId) => {
-    return postModel.findById(postId)
-        .then((result) => {
-            result = result.toJSON();
-            delete result._id;
-            delete result.__v;
-            return result;
-        });
 };
 
 exports.patchPost = (postId, postData) => {

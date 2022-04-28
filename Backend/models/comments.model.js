@@ -57,9 +57,30 @@ exports.list = (perPage, page) => {
     });
 };
 
-exports.removeById = (commentId) => {
+exports.removeById = async (commentId) => {
+    const comment = await commentModel.findById(commentId);
+
+    // remove comments from associated post too
+    const relatedPostId = comment.post
+    const relatedPost = await postModel.findById(relatedPostId)
+    const commentsToSave = relatedPost.comments.length > 0 ? relatedPost.comments.filter(comment => comment != commentId) : []
+    relatedPost.comments = []
+    commentsToSave.length && relatedPost.comments.push(commentsToSave)
+    relatedPost.save()
     return new Promise((resolve, reject) => {
-        commentModel.deleteMany({_id: commentId}, (err) => {
+        commentModel.deleteMany({ _id: commentId }, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(err);
+            }
+        });
+    });
+};
+
+exports.removeCommentById = async (commentId) => {
+    return new Promise((resolve, reject) => {
+        commentModel.deleteMany({ _id: commentId }, (err) => {
             if (err) {
                 reject(err);
             } else {
