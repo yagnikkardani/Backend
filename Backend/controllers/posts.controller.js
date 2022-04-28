@@ -28,6 +28,9 @@ const postModel = require('../models/posts.model');
  *         postTags:
  *           type: array
  *           description: The Post tags
+ *         postLikes:
+ *           type: integer
+ *           description: Number of likes on post
  *         comments:
  *           type: array
  *           items:
@@ -39,6 +42,7 @@ const postModel = require('../models/posts.model');
  *         postDescription: This is a post description for first post
  *         postDate: 1991-12-06T00:00:00.000Z
  *         postTags: ['Design', 'XD']
+ *         postLikes: 0
  */
 
  /**
@@ -161,3 +165,40 @@ exports.removeById = (req, res) => {
             res.status(200).send(result);
         });
 };
+
+/**
+ * @swagger
+ * /post/{id}:
+ *   patch:
+ *     summary: Update a perticular post
+ *     parameters: 
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Post'
+ *     responses:
+ *       200:
+ *         description: The Post was successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       500:
+ *         description: Some server error
+ */
+
+ exports.patchById = (req, res) => {
+
+    postModel.patchPost(req.params.id, req.body)
+        .then((result) => {
+            res.status(204).send({});
+        });
+  
+  };

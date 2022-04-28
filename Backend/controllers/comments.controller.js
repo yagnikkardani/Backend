@@ -127,3 +127,40 @@ exports.list = (req, res) => {
             res.status(204).send({});
         });
 };
+
+/**
+ * @swagger
+ * /comment/{id}:
+ *   patch:
+ *     summary: Update a perticular comment
+ *     parameters: 
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Comment'
+ *     responses:
+ *       200:
+ *         description: The Comment was successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Comment'
+ *       500:
+ *         description: Some server error
+ */
+
+ exports.patchById = (req, res) => {
+
+    commentModel.patchComment(req.params.id, req.body)
+        .then((result) => {
+            res.status(204).send({});
+        });
+  
+  };

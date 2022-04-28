@@ -15,6 +15,9 @@ exports.routesConfig = function (app) {
     app.delete('/user/:id', [
         UsersController.removeById
     ]);
+    app.patch('/user/:id', [
+        UsersController.patchById
+    ]);
     app.post('/post', [
         PostsController.insert
     ]);
@@ -27,6 +30,9 @@ exports.routesConfig = function (app) {
     app.delete('/post/:id', [
         PostsController.removeById
     ]);
+    app.patch('/post/:id', [
+        PostsController.patchById
+    ]);
     app.post('/post/:id/comment', [
         CommentsController.insert
     ]);
@@ -35,5 +41,8 @@ exports.routesConfig = function (app) {
     ]);
     app.delete('/comment/:id', [
         CommentsController.removeById
+    ]);
+    app.patch('/comment/:id', [
+        CommentsController.patchById
     ]);
 };

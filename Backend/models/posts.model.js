@@ -20,7 +20,12 @@ const postSchema = new Schema({
     postTags: {
         type: [String],
         require: true
-      },
+    },
+    postLikes: {
+        type: Number,
+        require: false,
+        default: 0
+    },
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
@@ -81,3 +86,9 @@ exports.findById = (postId) => {
             return result;
         });
 };
+
+exports.patchPost = (postId, postData) => {
+    return postModel.findOneAndUpdate({
+        _id: postId
+    }, postData);
+  };

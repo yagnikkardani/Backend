@@ -62,3 +62,9 @@ exports.findById = (userId) => {
           return result;
       });
 };
+
+exports.patchUser = (userId, userData) => {
+  return userModel.findOneAndUpdate({
+      _id: userId
+  }, userData);
+};

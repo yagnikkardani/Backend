@@ -37,7 +37,7 @@ exports.createComment = async (commentData, postId) => {
     })
     await comment.save();
     const relatedPost = await postModel.findById(postId);
-    relatedPost.comments.push(comment);
+    await relatedPost.comments.push(comment);
     return relatedPost.save()
 };
 
@@ -67,4 +67,10 @@ exports.removeById = (commentId) => {
             }
         });
     });
+};
+
+exports.patchComment = (commentId, commentData) => {
+    return commentModel.findOneAndUpdate({
+        _id: commentId
+    }, commentData);
 };

@@ -149,3 +149,40 @@ exports.getById = (req, res) => {
             res.status(200).send(result);
         });
 };
+
+/**
+ * @swagger
+ * /user/{id}:
+ *   patch:
+ *     summary: Update a perticular user
+ *     parameters: 
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: The User was successfully updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Some server error
+ */
+
+exports.patchById = (req, res) => {
+
+    UserModel.patchUser(req.params.id, req.body)
+        .then((result) => {
+            res.status(204).send({});
+        });
+  
+  };
