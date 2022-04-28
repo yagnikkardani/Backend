@@ -37,7 +37,7 @@ exports.createComment = async (commentData, postId) => {
     })
     await comment.save();
     const relatedPost = await postModel.findById(postId);
-    await relatedPost.comments.push(comment);
+    relatedPost.comments.push(comment);
     return relatedPost.save()
 };
 
